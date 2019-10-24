@@ -22,7 +22,7 @@ namespace Chat.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer(connectionString);
         }
     }
 }

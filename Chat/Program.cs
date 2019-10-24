@@ -3,6 +3,7 @@ using Chat.Domain;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Chat.UI
 {
@@ -16,16 +17,18 @@ namespace Chat.UI
             var connectionString = configurationRoot.GetConnectionString("ConnectionString");
             using(ChatContext context = new ChatContext(connectionString))
             {
-                context.Users.Add(new User
+                Console.WriteLine("Введите логин: ");
+                var login = Console.ReadLine();
+                var currentUser = context.Users.Single(user => user.Login == login);
+                if(currentUser != null)
                 {
-                    Login = "Azat"
-                });
-
-                context.Users.Add(new User
+                    MessageUI messageUI = new MessageUI(context);
+                    messageUI.Message(currentUser);
+                }
+                else
                 {
-                    Login = "Galym"
-                });
-                context.SaveChanges();
+                    Console.WriteLine("Пользователь не найден!");
+                }
             }
 
 

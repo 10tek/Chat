@@ -30,6 +30,7 @@ namespace Chat.UI
                     Console.WriteLine("\n=> ");
                     var text = Console.ReadLine();
                     messageService.SendMessage(text, user);
+                    ShowMessages();
                 }
                 else if (key.Key == ConsoleKey.F5)
                 {
@@ -41,13 +42,27 @@ namespace Chat.UI
         private void ShowMessages()
         {
             Console.Clear();
-            var messageCount = messageService.UpdateMessages().Count - messagePerPage;
-
-            var messages = context.Messages.Skip(messageCount).Take(messagePerPage).ToList();
-            foreach(var message in messages) 
-            { 
-                Console.WriteLine($"[{message.CreationDate.TimeOfDay}]{message.User.Login} : {message.Text}");
+            if (messageService.UpdateMessages().Count > messagePerPage)
+            {
+                var messageCount = messageService.UpdateMessages().Count - messagePerPage;
+                if (messageCount <= 0) return;
+                var messages = context.Messages.Skip(messageCount).Take(messagePerPage).ToList();
+                messages = messages.OrderBy(message => message.CreationDate).ToList();
+                foreach (var message in messages)
+                {
+                    Console.WriteLine($"[{message.CreationDate.TimeOfDay}]{message.User.Login} : {message.Text}");
+                }
             }
+            else
+            {
+                var messages = messageService.UpdateMessages().ToList();
+                messages = messages.OrderBy(message => message.CreationDate).ToList();
+                foreach (var message in messages)
+                {
+                    Console.WriteLine($"[{message.CreationDate.TimeOfDay}]{message.User.Login} : {message.Text}");
+                }
+            }
+            
 
         }
     }
