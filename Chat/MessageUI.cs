@@ -50,7 +50,7 @@ namespace Chat.UI
                 messages = messages.OrderBy(message => message.CreationDate).ToList();
                 foreach (var message in messages)
                 {
-                    Console.WriteLine($"[{message.CreationDate.TimeOfDay}]{message.User.Login} : {message.Text}");
+                    Console.WriteLine($"[{message.CreationDate.ToShortTimeString()}]{message.User.Login} : {message.Text}");
                 }
             }
             else
@@ -59,7 +59,7 @@ namespace Chat.UI
                 messages = messages.OrderBy(message => message.CreationDate).ToList();
                 foreach (var message in messages)
                 {
-                    Console.WriteLine($"[{message.CreationDate.TimeOfDay}]{message.User.Login} : {message.Text}");
+                    Console.WriteLine($"[{message.CreationDate.ToShortTimeString()}]{message.User.Login} : {message.Text}");
                 }
             }
             
