@@ -18,6 +18,7 @@ namespace Chat.Service
 
         public void SendMessage(string text, User user)
         {
+            if (text == "") return;
             var message = new Message
             {
                 User = user,

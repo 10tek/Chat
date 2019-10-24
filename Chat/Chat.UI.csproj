@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Chat.DataAccess\Chat.DataAccess.csproj" />
+    <ProjectReference Include="..\Chat.Servive\Chat.Servive.csproj" />
   </ItemGroup>
 
   <ItemGroup>
